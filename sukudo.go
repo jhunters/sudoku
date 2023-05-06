@@ -2,7 +2,6 @@
 package sudoku
 
 import (
-	"fmt"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -62,6 +61,11 @@ func (s *Sukudo) Copy() *Sukudo {
 	ret.Exit = s.Exit
 	ret.tryCounter = s.tryCounter
 	return ret
+}
+
+// Print sukudo puzzle
+func (s *Sukudo) Print() {
+	Print(s.ResultOut())
 }
 
 // Exited return true if should exit loop
@@ -321,7 +325,6 @@ func (s *Sukudo) Solve() (ok bool, count int32) {
 		atomic.AddInt32(s.tryCounter, 1)
 
 		if *s.tryCounter >= 100000 {
-			fmt.Println("推演次数过多，中断循环")
 			break
 		}
 

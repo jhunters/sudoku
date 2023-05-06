@@ -1,6 +1,7 @@
 package sudoku_test
 
 import (
+	"fmt"
 	"testing"
 
 	"github.com/jhunters/sudoku"
@@ -64,4 +65,33 @@ func TestSolveSuccess(t *testing.T) {
 		So(data, ShouldEqual, expect)
 	})
 
+}
+
+func ExampleSukudo_Solve() {
+	skd := sudoku.NewSukudo()
+	origin := [9][9]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
+		{0, 3, 4, 9, 0, 0, 0, 0, 0}, {8, 6, 0, 0, 5, 0, 0, 4, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 6},
+		{0, 0, 9, 7, 0, 0, 8, 0, 5}, {0, 0, 0, 0, 2, 0, 9, 6, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 4}, {4, 0, 0, 0, 0, 5, 0, 8, 0},
+	}
+
+	skd.ResultIn(origin)
+
+	result, _ := skd.Solve()
+	fmt.Println(result)
+
+	skd.Print()
+
+	// Output:
+	// true
+	// 6 7 8 | 5 3 2 | 4 9 1
+	// 9 5 1 | 8 4 7 | 6 3 2
+	// 2 3 4 | 9 1 6 | 7 5 8
+	// ----- + ----- + -----
+	// 8 6 7 | 1 5 3 | 2 4 9
+	// 1 4 5 | 2 8 9 | 3 7 6
+	// 3 2 9 | 7 6 4 | 8 1 5
+	// ----- + ----- + -----
+	// 5 1 3 | 4 2 8 | 9 6 7
+	// 7 8 6 | 3 9 1 | 5 2 4
+	// 4 9 2 | 6 7 5 | 1 8 3
 }
