@@ -68,10 +68,22 @@ func TestSolveSuccess(t *testing.T) {
 }
 
 func ExampleSukudo_Solve() {
+
+	data := `6 0 0 0 0 2 0 0 0
+	0 0 1 0 0 7 0 0 2
+	0 3 4 9 0 0 0 0 0
+	8 6 0 0 5 0 0 4 0
+	1 0 0 0 0 0 0 0 6
+	0 0 9 7 0 0 8 0 5
+	0 0 0 0 2 0 9 6 0
+	0 0 0 0 0 1 0 0 4
+	4 0 0 0 0 5 0 8 0`
+
 	skd := sudoku.NewSukudo()
-	origin := [9][9]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
-		{0, 3, 4, 9, 0, 0, 0, 0, 0}, {8, 6, 0, 0, 5, 0, 0, 4, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 6},
-		{0, 0, 9, 7, 0, 0, 8, 0, 5}, {0, 0, 0, 0, 2, 0, 9, 6, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 4}, {4, 0, 0, 0, 0, 5, 0, 8, 0},
+	origin, err := sudoku.ParseString(data)
+	if err != nil {
+		fmt.Println(err)
+		return
 	}
 
 	skd.ResultIn(origin)
