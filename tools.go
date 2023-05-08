@@ -70,6 +70,5 @@ func ParseString(s string) ([9][9]int, error) {
 }
 
 func splitString(str string) []string {
-	strSlice := strings.Fields(str)
-	return strSlice
+	return strings.Fields(str)
 }
