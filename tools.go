@@ -72,3 +72,20 @@ func ParseString(s string) ([9][9]int, error) {
 func splitString(str string) []string {
 	return strings.Fields(str)
 }
+
+// ReadData convert data [][]int to [9][9]int
+func ReadData(data [][]int) [9][9]int {
+	origin := [9][9]int{}
+	if len(data) < 9 {
+		return origin
+	}
+	for i := 0; i < 9; i++ {
+		if len(data[i]) < 9 {
+			return origin
+		}
+		for j := 0; j < 9; j++ {
+			origin[i][j] = data[i][j]
+		}
+	}
+	return origin
+}
