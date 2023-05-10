@@ -293,7 +293,6 @@ func (s *Sukudo) doSolve() (bool, []optional) {
 	for _, opt := range optionals {
 		if len(opt.opts) == 1 {
 			s.Puzzles[opt.x][opt.y] = opt.opts[0]
-			// fmt.Println("found unique solution x=", opt.x, "y=", opt.y, " value=", mapping[opt.opts[0]])
 			foundUni = true
 
 			if s.Exited() {
