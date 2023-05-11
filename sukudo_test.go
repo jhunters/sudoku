@@ -129,3 +129,29 @@ func ExampleSukudo_Solve() {
 	// 7 8 6 | 3 9 1 | 5 2 4
 	// 4 9 2 | 6 7 5 | 1 8 3
 }
+
+func ExampleSukudo_ResultInFromString() {
+
+	data := "600002000001007002034900000860050040100000006009700805000020960000001004400005080"
+	skd := sudoku.NewSukudo()
+	skd.ResultInFromString(data)
+
+	result, _ := skd.Solve()
+	fmt.Println(result)
+
+	skd.Print()
+
+	// Output:
+	// true
+	// 6 7 8 | 5 3 2 | 4 9 1
+	// 9 5 1 | 8 4 7 | 6 3 2
+	// 2 3 4 | 9 1 6 | 7 5 8
+	// ----- + ----- + -----
+	// 8 6 7 | 1 5 3 | 2 4 9
+	// 1 4 5 | 2 8 9 | 3 7 6
+	// 3 2 9 | 7 6 4 | 8 1 5
+	// ----- + ----- + -----
+	// 5 1 3 | 4 2 8 | 9 6 7
+	// 7 8 6 | 3 9 1 | 5 2 4
+	// 4 9 2 | 6 7 5 | 1 8 3
+}
