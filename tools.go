@@ -29,6 +29,28 @@ func Print(result [9][9]int) {
 
 }
 
+// PrintToString return sudoku 9x9 formt print string
+func PrintToString(result [9][9]int) string {
+	buf := bytes.NewBuffer(make([]byte, 0))
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			fmt.Fprint(buf, result[i][j])
+			if j < 8 {
+				fmt.Fprint(buf, " ")
+			}
+			if j > 0 && j%3 == 2 && j < 8 {
+				fmt.Fprint(buf, "| ")
+			}
+		}
+		fmt.Fprintln(buf)
+
+		if i > 0 && i%3 == 2 && i < 8 {
+			fmt.Fprintln(buf, "----- + ----- + -----")
+		}
+	}
+	return buf.String()
+}
+
 // ParseString to parse string number split by space into [9][9]int format
 func ParseString(s string) ([9][9]int, error) {
 	var ret [9][9]int
