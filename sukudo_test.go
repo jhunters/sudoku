@@ -67,6 +67,28 @@ func TestSolveSuccess(t *testing.T) {
 
 }
 
+func TestFromStringSolveSuccess(t *testing.T) {
+	Convey("Test solve success", t, func() {
+		skd := sudoku.NewSukudo()
+		originStr := "600002000001007002034900000860050040100000006009700805000020960000001004400005080"
+
+		expect := [9][9]int{{6, 7, 8, 5, 3, 2, 4, 9, 1}, {9, 5, 1, 8, 4, 7, 6, 3, 2}, {2, 3, 4, 9, 1, 6, 7, 5, 8},
+			{8, 6, 7, 1, 5, 3, 2, 4, 9}, {1, 4, 5, 2, 8, 9, 3, 7, 6}, {3, 2, 9, 7, 6, 4, 8, 1, 5}, {5, 1, 3, 4, 2, 8, 9, 6, 7},
+			{7, 8, 6, 3, 9, 1, 5, 2, 4}, {4, 9, 2, 6, 7, 5, 1, 8, 3}}
+
+		skd.ResultInFromString(originStr)
+
+		result, _ := skd.Solve()
+		So(result, ShouldBeTrue)
+
+		So(skd.Finished(), ShouldBeTrue)
+
+		data := skd.ResultOut()
+		So(data, ShouldEqual, expect)
+	})
+
+}
+
 func ExampleSukudo_Solve() {
 
 	data := `6 0 0 0 0 2 0 0 0

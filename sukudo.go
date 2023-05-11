@@ -2,6 +2,7 @@
 package sudoku
 
 import (
+	"fmt"
 	"strconv"
 	"sync"
 	"sync/atomic"
@@ -186,6 +187,29 @@ func (s *Sukudo) ResultIn(origin [9][9]int) {
 			}
 		}
 	}
+}
+
+// ResultInFromString parse directly from string number
+func (s *Sukudo) ResultInFromString(str string) error {
+	if len(str) != 81 {
+		return fmt.Errorf("invalid sudoku puzzle by string. the length should be 81")
+	}
+
+	for x := 0; x < 81; x++ {
+		c := str[x]
+		intVal, err := strconv.Atoi(string(c))
+		if err != nil {
+			return fmt.Errorf("with a ono integer value '%v'", c)
+		}
+		if intVal < 0 || intVal > 9 {
+			return fmt.Errorf("with invalid integer value '%v', should between 0~9", c)
+		}
+
+		i := x / 9
+		j := x % 9
+		s.Puzzles[i][j] = unmapping[intVal]
+	}
+	return nil
 }
 
 // ResultOut 导出结果，为原始的数字
