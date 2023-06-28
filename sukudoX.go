@@ -12,6 +12,12 @@ import (
 	"github.com/jhunters/goassist/conv"
 )
 
+type optional struct {
+	x    int
+	y    int
+	opts []int
+}
+
 type SukudoX struct {
 	// SukudoX puzzle content
 	Puzzles [][]int
@@ -104,7 +110,7 @@ func (s *SukudoX) Copy() *SukudoX {
 
 // Print SukudoX puzzle
 func (s *SukudoX) Print() {
-	// PrintX(s.ResultOut())
+	PrintX(s.ResultOut(), s.Max, s.boxWMax, s.boxHMax)
 }
 
 // Exited return true if should exit loop

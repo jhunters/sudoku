@@ -62,6 +62,8 @@ func TestGenXAndcheck4x4(t *testing.T) {
 		So(success, ShouldBeTrue)
 
 		So(answer, ShouldResemble, skd.ResultOut())
+
+		skd.Print()
 	})
 }
 
@@ -81,6 +83,8 @@ func TestGenXAndcheck4x2(t *testing.T) {
 		So(success, ShouldBeTrue)
 
 		So(answer, ShouldResemble, skd.ResultOut())
+
+		skd.Print()
 	})
 
 }

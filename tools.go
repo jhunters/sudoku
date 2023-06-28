@@ -9,42 +9,27 @@ import (
 )
 
 // Print sudoku puzzle data
-func Print(result [9][9]int) {
-	for i := 0; i < 9; i++ {
-		for j := 0; j < 9; j++ {
-			fmt.Print(result[i][j])
-			if j < 8 {
-				fmt.Print(" ")
-			}
-			if j > 0 && j%3 == 2 && j < 8 {
-				fmt.Print("| ")
-			}
-		}
-		fmt.Println()
+func PrintX(result [][]int, max int, boxW int, boxH int) {
 
-		if i > 0 && i%3 == 2 && i < 8 {
-			fmt.Println("----- + ----- + -----")
-		}
+	boxSplitMark := "-----"
+	for i := 0; i < boxH-1; i++ {
+		boxSplitMark += " + -----"
 	}
 
-}
-
-// Print sudoku puzzle data
-func Print6x6(result [6][6]int) {
-	for i := 0; i < 6; i++ {
-		for j := 0; j < 6; j++ {
+	for i := 0; i < max; i++ {
+		for j := 0; j < max; j++ {
 			fmt.Print(result[i][j])
-			if j < 5 {
+			if j < max-1 {
 				fmt.Print(" ")
 			}
-			if j > 0 && j%3 == 2 && j < 5 {
+			if j > 0 && j%boxW == boxW-1 && j < max-1 {
 				fmt.Print("| ")
 			}
 		}
 		fmt.Println()
 
-		if i > 0 && i%2 == 1 && i < 5 {
-			fmt.Println("----- + ----- + -----")
+		if i > 0 && i%boxH == boxH-1 && i < max-1 {
+			fmt.Println(boxSplitMark)
 		}
 	}
 

@@ -21,8 +21,8 @@ go get github.com/jhunters/sudoku
 
 ### Do solve sudoku puzzle
 ```go
-	skd := sudoku.NewSukudo()
-	origin := [9][9]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
+	skd, _ := sudoku.NewSukudoX(9)
+	origin := [][]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
 		{0, 3, 4, 9, 0, 0, 0, 0, 0}, {8, 6, 0, 0, 5, 0, 0, 4, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 6},
 		{0, 0, 9, 7, 0, 0, 8, 0, 5}, {0, 0, 0, 0, 2, 0, 9, 6, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 4}, 
         {4, 0, 0, 0, 0, 5, 0, 8, 0},
@@ -56,10 +56,10 @@ output result as follow:
 ### generate a random sudoku puzzle
 
 ```go
-    sg := &sudoku.SukudoGen{40}
+    sg := &sudoku.SukudoGenX{9, 40}
     result, _ := sg.GenSukudo()
 
-    sudoku.Print(result)
+    sudoku.PrintX(result, 9, 3, 3)
 ```
 output result will be like:
 
