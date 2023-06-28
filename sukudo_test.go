@@ -85,6 +85,8 @@ func TestFromStringSolveSuccess(t *testing.T) {
 
 		data := skd.ResultOut()
 		So(data, ShouldEqual, expect)
+
+		skd.Print()
 	})
 
 }

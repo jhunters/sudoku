@@ -29,6 +29,27 @@ func Print(result [9][9]int) {
 
 }
 
+// Print sudoku puzzle data
+func Print6x6(result [6][6]int) {
+	for i := 0; i < 6; i++ {
+		for j := 0; j < 6; j++ {
+			fmt.Print(result[i][j])
+			if j < 5 {
+				fmt.Print(" ")
+			}
+			if j > 0 && j%3 == 2 && j < 5 {
+				fmt.Print("| ")
+			}
+		}
+		fmt.Println()
+
+		if i > 0 && i%2 == 1 && i < 5 {
+			fmt.Println("----- + ----- + -----")
+		}
+	}
+
+}
+
 // PrintToString return sudoku 9x9 formt print string
 func PrintToString(result [9][9]int) string {
 	buf := bytes.NewBuffer(make([]byte, 0))
@@ -110,4 +131,12 @@ func ReadData(data [][]int) [9][9]int {
 		}
 	}
 	return origin
+}
+
+func Init2dimArray(max int) [][]int {
+	ret := make([][]int, max)
+	for i := 0; i < max; i++ {
+		ret[i] = make([]int, max)
+	}
+	return ret
 }
