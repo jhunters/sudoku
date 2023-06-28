@@ -1,40 +1,86 @@
 package sudoku_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/jhunters/sudoku"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
-func TestGenXAndcheck(t *testing.T) {
+func TestGenXAndcheck9x9(t *testing.T) {
 
-	Convey("TestGenXAndcheck", t, func() {
-
-		sg, err := sudoku.NewSukudoGenX(9, 0)
+	Convey("TestGenXAndcheck 9x9", t, func() {
+		sg, err := sudoku.NewSukudoGenX(9, 10)
 		So(err, ShouldBeNil)
 
 		result, answer, err := sg.GenSukudo()
 		So(err, ShouldBeNil)
-		fmt.Println(result, answer)
 
-		rdate := sudoku.ReadData(result)
+		skd, err := sudoku.NewSukudoX(9)
+		So(err, ShouldBeNil)
+		skd.ResultIn(result)
 
-		// result2 := sudoku.ReadData(result)
-		skd2 := sudoku.NewSukudo()
-		skd2.ResultIn(rdate)
-		skd2.Solve()
-		fmt.Println(skd2.ResultOut())
+		success, _ := skd.Solve()
+		So(success, ShouldBeTrue)
 
-		// skd, err := sudoku.NewSukudoX(9)
-		// So(err, ShouldBeNil)
-		// skd.ResultIn(result)
+		So(answer, ShouldResemble, skd.ResultOut())
+	})
 
-		// success, _ := skd.Solve()
-		// So(success, ShouldBeTrue)
+}
+func TestGenXAndcheck6x6(t *testing.T) {
+	Convey("TestGenXAndcheck 6x6", t, func() {
+		sg, err := sudoku.NewSukudoGenX(6, 10)
+		So(err, ShouldBeNil)
 
-		// So(answer, ShouldResemble, skd.ResultOut())
+		result, answer, err := sg.GenSukudo()
+		So(err, ShouldBeNil)
+
+		skd, err := sudoku.NewSukudoX(6)
+		So(err, ShouldBeNil)
+		skd.ResultIn(result)
+
+		success, _ := skd.Solve()
+		So(success, ShouldBeTrue)
+
+		So(answer, ShouldResemble, skd.ResultOut())
+	})
+}
+
+func TestGenXAndcheck4x4(t *testing.T) {
+	Convey("TestGenXAndcheck 4x4", t, func() {
+		sg, err := sudoku.NewSukudoGenX(4, 2)
+		So(err, ShouldBeNil)
+
+		result, answer, err := sg.GenSukudo()
+		So(err, ShouldBeNil)
+
+		skd, err := sudoku.NewSukudoX(4)
+		So(err, ShouldBeNil)
+		skd.ResultIn(result)
+
+		success, _ := skd.Solve()
+		So(success, ShouldBeTrue)
+
+		So(answer, ShouldResemble, skd.ResultOut())
+	})
+}
+
+func TestGenXAndcheck4x2(t *testing.T) {
+	Convey("TestGenXAndcheck 4x2", t, func() {
+		sg, err := sudoku.NewSukudoGenX(8, 2)
+		So(err, ShouldBeNil)
+
+		result, answer, err := sg.GenSukudo()
+		So(err, ShouldBeNil)
+
+		skd, err := sudoku.NewSukudoX(8)
+		So(err, ShouldBeNil)
+		skd.ResultIn(result)
+
+		success, _ := skd.Solve()
+		So(success, ShouldBeTrue)
+
+		So(answer, ShouldResemble, skd.ResultOut())
 	})
 
 }

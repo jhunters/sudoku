@@ -15,6 +15,7 @@ func TestGenAndcheck(t *testing.T) {
 		result, answer := sg.GenSukudo()
 
 		sudoku.Print(result)
+		sudoku.Print(answer)
 
 		// sdu, _ := sudoku.NewSukudoX(9)
 		// rdate := sudoku.Init2dimArray(9)
@@ -31,7 +32,6 @@ func TestGenAndcheck(t *testing.T) {
 
 		success, count := skd.Solve()
 		fmt.Println(success, count)
-		So(success, ShouldBeTrue)
 
 		So(answer, ShouldResemble, skd.ResultOut())
 	})

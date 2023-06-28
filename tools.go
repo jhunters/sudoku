@@ -133,6 +133,17 @@ func ReadData(data [][]int) [9][9]int {
 	return origin
 }
 
+func ReadData2(data [9][9]int) [][]int {
+	ret := make([][]int, 9)
+	for i := 0; i < 9; i++ {
+		ret[i] = make([]int, 9)
+		for j := 0; j < 9; j++ {
+			ret[i][j] = data[i][j]
+		}
+	}
+	return ret
+}
+
 func Init2dimArray(max int) [][]int {
 	ret := make([][]int, max)
 	for i := 0; i < max; i++ {

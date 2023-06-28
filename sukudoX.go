@@ -92,7 +92,9 @@ func (s *SukudoX) ResultIn(origin [][]int) {
 func (s *SukudoX) Copy() *SukudoX {
 	mp := s.checked.Copy()
 	puzzles := Init2dimArray(s.Max)
-	copy(puzzles, s.Puzzles)
+	for i := 0; i < s.Max; i++ {
+		copy(puzzles[i], s.Puzzles[i])
+	}
 	ret := &SukudoX{Puzzles: puzzles, checked: mp, Max: s.Max, mapping: s.mapping,
 		unmapping: s.unmapping, boxWMax: s.boxWMax, boxHMax: s.boxHMax, xCount: s.xCount, yCount: s.yCount}
 	ret.Exit = s.Exit

@@ -85,7 +85,10 @@ func (sg *SukudoGenX) GenSukudo() (result [][]int, answer [][]int, err error) {
 	sdk.ResultIn(result)
 	sdk.Solve()
 	result = sdk.ResultOut()
-	copy(answer, result)
+	answer = Init2dimArray(sg.max)
+	for i := 0; i < sg.max; i++ {
+		copy(answer[i], result[i])
+	}
 
 	// 替换需要空缺的个数
 	if sg.MissCount > 0 {
