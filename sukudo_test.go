@@ -62,7 +62,7 @@ func TestSolveSuccess(t *testing.T) {
 		So(skd.Finished(), ShouldBeTrue)
 
 		data := skd.ResultOut()
-		So(data, ShouldEqual, expect)
+		So(data, ShouldResemble, expect)
 	})
 
 }
@@ -84,7 +84,7 @@ func TestFromStringSolveSuccess(t *testing.T) {
 		So(skd.Finished(), ShouldBeTrue)
 
 		data := skd.ResultOut()
-		So(data, ShouldEqual, expect)
+		So(data, ShouldResemble, expect)
 
 		skd.Print()
 	})

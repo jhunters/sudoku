@@ -18,6 +18,7 @@ type optional struct {
 	opts []int
 }
 
+// SukudoX is a flexiable sudoku puzzle resolver
 type SukudoX struct {
 	// SukudoX puzzle content
 	Puzzles [][]int
