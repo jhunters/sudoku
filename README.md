@@ -1,5 +1,5 @@
 <p align="center">
-sudoku is golang sdk for generate and resolve sudoku game 
+Sudoku is a Go programming language software development kit (SDK) used for generating and solving Sudoku puzzles. It offers great flexibility by supporting various grid sizes such as 9x9, 6x6, 4x4, 8x8, and more.
 </p>
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/jhunters/sudoku)](https://goreportcard.com/report/github.com/jhunters/sudoku)
