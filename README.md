@@ -21,7 +21,7 @@ go get github.com/jhunters/sudoku
 
 ### Do solve sudoku puzzle
 ```go
-	skd, _ := sudoku.NewSukudoX(9)
+	skd, _ := sudoku.NewSudokuX(9)
 	origin := [][]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
 		{0, 3, 4, 9, 0, 0, 0, 0, 0}, {8, 6, 0, 0, 5, 0, 0, 4, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 6},
 		{0, 0, 9, 7, 0, 0, 8, 0, 5}, {0, 0, 0, 0, 2, 0, 9, 6, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 4}, 
@@ -56,8 +56,8 @@ output result as follow:
 ### generate a random sudoku puzzle
 
 ```go
-    sg := &sudoku.SukudoGenX{9, 40}
-    result, _ := sg.GenSukudo()
+    sg := &sudoku.SudokuGenX{9, 40}
+    result, _ := sg.GenSudoku()
 
     sudoku.PrintX(result, 9, 3, 3)
 ```

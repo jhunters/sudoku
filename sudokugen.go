@@ -9,8 +9,8 @@ import (
 	"github.com/jhunters/goassist/arrayutil"
 )
 
-// SukudoGen generate sudoku puzzle
-type SukudoGenX struct {
+// SudokuGen generate sudoku puzzle
+type SudokuGenX struct {
 	MissCount  int
 	max        int
 	boxWMax    int
@@ -20,9 +20,9 @@ type SukudoGenX struct {
 	totalCount int
 }
 
-func NewSukudoGenX(max, misscount int) (*SukudoGenX, error) {
+func NewSudokuGenX(max, misscount int) (*SudokuGenX, error) {
 	if max > 1 && max < 10 && (isPerfectSquare(float64(max)) || max%2 == 0) {
-		sg := &SukudoGenX{max: max, MissCount: misscount}
+		sg := &SudokuGenX{max: max, MissCount: misscount}
 		sg.totalCount = int(math.Pow(float64(sg.max), 2))
 		if sg.MissCount > sg.totalCount-5 {
 			fmt.Println("too big miss count value:", sg.MissCount)
@@ -46,7 +46,7 @@ func NewSukudoGenX(max, misscount int) (*SukudoGenX, error) {
 	return nil, fmt.Errorf("invalid max number %d", max)
 }
 
-func (sg *SukudoGenX) genRandArray() []int {
+func (sg *SudokuGenX) genRandArray() []int {
 	ret := make([]int, sg.max)
 	for i := 1; i <= sg.max; i++ {
 		ret[i-1] = i
@@ -58,7 +58,7 @@ func (sg *SukudoGenX) genRandArray() []int {
 	return ret
 }
 
-func (sg *SukudoGenX) fillBox(result [][]int, fillby []int, rowB, ColB int) [][]int {
+func (sg *SudokuGenX) fillBox(result [][]int, fillby []int, rowB, ColB int) [][]int {
 	for i := 0; i < sg.max; i++ {
 		rowid := i/sg.boxWMax + rowB
 		colid := i%sg.boxWMax + ColB
@@ -67,8 +67,8 @@ func (sg *SukudoGenX) fillBox(result [][]int, fillby []int, rowB, ColB int) [][]
 	return result
 }
 
-// GenSukudo generate sudoku puzzle and solved result by random way
-func (sg *SukudoGenX) GenSukudo() (result [][]int, answer [][]int, err error) {
+// GenSudoku generate sudoku puzzle and solved result by random way
+func (sg *SudokuGenX) GenSudoku() (result [][]int, answer [][]int, err error) {
 	result = Init2dimArray(sg.max)
 
 	beginX := 0
@@ -81,7 +81,7 @@ func (sg *SukudoGenX) GenSukudo() (result [][]int, answer [][]int, err error) {
 		beginY = beginY + sg.boxWMax
 	}
 
-	sdk, err := NewSukudoX(sg.max)
+	sdk, err := NewSudokuX(sg.max)
 	sdk.ResultIn(result)
 	sdk.Solve()
 	result = sdk.ResultOut()

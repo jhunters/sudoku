@@ -10,32 +10,32 @@ import (
 
 // TestSuccess
 func TestCheckResultSuccess(t *testing.T) {
-	skd, _ := sudoku.NewSukudoX(9)
+	sdk, _ := sudoku.NewSudokuX(9)
 
 	origin := [][]int{{8, 9, 4, 1, 3, 6, 5, 2, 7}, {5, 1, 3, 2, 9, 7, 8, 6, 4},
 		{7, 6, 2, 5, 4, 8, 9, 3, 1}, {9, 4, 8, 7, 5, 3, 2, 1, 6}, {6, 2, 5, 4, 8, 1, 3, 7, 9},
 		{1, 3, 7, 9, 6, 2, 4, 5, 8}, {3, 5, 9, 6, 1, 4, 7, 8, 2}, {4, 7, 6, 8, 2, 5, 1, 9, 3}, {2, 8, 1, 3, 7, 9, 6, 4, 5},
 	}
 
-	skd.ResultIn(origin)
+	sdk.ResultIn(origin)
 
-	if !skd.Success() {
+	if !sdk.Success() {
 		t.Error("Check success failed")
 	}
 }
 
 // TestSolveWithInvalidateData
 func TestSolveWithInvalidateData(t *testing.T) {
-	skd, _ := sudoku.NewSukudoX(9)
+	sdk, _ := sudoku.NewSudokuX(9)
 
 	origin := [][]int{{8, 9, 0, 1, 0, 0, 0, 2, 0}, {0, 0, 0, 2, 9, 7, 8, 6, 4},
 		{0, 0, 0, 5, 4, 8, 9, 3, 1}, {9, 4, 8, 7, 5, 3, 2, 6, 6}, {6, 2, 5, 4, 8, 1, 3, 7, 9},
 		{1, 3, 7, 9, 6, 2, 4, 5, 8}, {3, 5, 9, 6, 1, 4, 7, 8, 2}, {4, 7, 6, 8, 2, 5, 1, 9, 3}, {2, 8, 1, 3, 7, 9, 6, 4, 5},
 	}
 
-	skd.ResultIn(origin)
+	sdk.ResultIn(origin)
 
-	validate, _ := skd.Solve()
+	validate, _ := sdk.Solve()
 
 	if validate {
 		t.Error("validate should return false")
@@ -44,7 +44,7 @@ func TestSolveWithInvalidateData(t *testing.T) {
 
 func TestSolveSuccess(t *testing.T) {
 	Convey("Test solve success", t, func() {
-		skd, _ := sudoku.NewSukudoX(9)
+		sdk, _ := sudoku.NewSudokuX(9)
 		origin := [][]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
 			{0, 3, 4, 9, 0, 0, 0, 0, 0}, {8, 6, 0, 0, 5, 0, 0, 4, 0}, {1, 0, 0, 0, 0, 0, 0, 0, 6},
 			{0, 0, 9, 7, 0, 0, 8, 0, 5}, {0, 0, 0, 0, 2, 0, 9, 6, 0}, {0, 0, 0, 0, 0, 1, 0, 0, 4}, {4, 0, 0, 0, 0, 5, 0, 8, 0},
@@ -54,14 +54,14 @@ func TestSolveSuccess(t *testing.T) {
 			{8, 6, 7, 1, 5, 3, 2, 4, 9}, {1, 4, 5, 2, 8, 9, 3, 7, 6}, {3, 2, 9, 7, 6, 4, 8, 1, 5}, {5, 1, 3, 4, 2, 8, 9, 6, 7},
 			{7, 8, 6, 3, 9, 1, 5, 2, 4}, {4, 9, 2, 6, 7, 5, 1, 8, 3}}
 
-		skd.ResultIn(origin)
+		sdk.ResultIn(origin)
 
-		result, _ := skd.Solve()
+		result, _ := sdk.Solve()
 		So(result, ShouldBeTrue)
 
-		So(skd.Finished(), ShouldBeTrue)
+		So(sdk.Finished(), ShouldBeTrue)
 
-		data := skd.ResultOut()
+		data := sdk.ResultOut()
 		So(data, ShouldResemble, expect)
 	})
 
@@ -69,29 +69,29 @@ func TestSolveSuccess(t *testing.T) {
 
 func TestFromStringSolveSuccess(t *testing.T) {
 	Convey("Test solve success", t, func() {
-		skd, _ := sudoku.NewSukudoX(9)
+		sdk, _ := sudoku.NewSudokuX(9)
 		originStr := "600002000001007002034900000860050040100000006009700805000020960000001004400005080"
 
 		expect := [][]int{{6, 7, 8, 5, 3, 2, 4, 9, 1}, {9, 5, 1, 8, 4, 7, 6, 3, 2}, {2, 3, 4, 9, 1, 6, 7, 5, 8},
 			{8, 6, 7, 1, 5, 3, 2, 4, 9}, {1, 4, 5, 2, 8, 9, 3, 7, 6}, {3, 2, 9, 7, 6, 4, 8, 1, 5}, {5, 1, 3, 4, 2, 8, 9, 6, 7},
 			{7, 8, 6, 3, 9, 1, 5, 2, 4}, {4, 9, 2, 6, 7, 5, 1, 8, 3}}
 
-		skd.ResultInFromString(originStr)
+		sdk.ResultInFromString(originStr)
 
-		result, _ := skd.Solve()
+		result, _ := sdk.Solve()
 		So(result, ShouldBeTrue)
 
-		So(skd.Finished(), ShouldBeTrue)
+		So(sdk.Finished(), ShouldBeTrue)
 
-		data := skd.ResultOut()
+		data := sdk.ResultOut()
 		So(data, ShouldResemble, expect)
 
-		skd.Print()
+		sdk.Print()
 	})
 
 }
 
-func ExampleSukudoX_Solve() {
+func ExampleSudokuX_Solve() {
 
 	data := `6 0 0 0 0 2 0 0 0
 	0 0 1 0 0 7 0 0 2
@@ -103,19 +103,19 @@ func ExampleSukudoX_Solve() {
 	0 0 0 0 0 1 0 0 4
 	4 0 0 0 0 5 0 8 0`
 
-	skd, _ := sudoku.NewSukudoX(9)
+	sdk, _ := sudoku.NewSudokuX(9)
 	origin, err := sudoku.ParseString(data)
 	if err != nil {
 		fmt.Println(err)
 		return
 	}
 
-	skd.ResultIn(sudoku.ReadData2(origin))
+	sdk.ResultIn(sudoku.ReadData2(origin))
 
-	result, _ := skd.Solve()
+	result, _ := sdk.Solve()
 	fmt.Println(result)
 
-	skd.Print()
+	sdk.Print()
 
 	// Output:
 	// true
@@ -132,16 +132,16 @@ func ExampleSukudoX_Solve() {
 	// 4 9 2 | 6 7 5 | 1 8 3
 }
 
-func ExampleSukudoX_ResultInFromString() {
+func ExampleSudokuX_ResultInFromString() {
 
 	data := "600002000001007002034900000860050040100000006009700805000020960000001004400005080"
-	skd, _ := sudoku.NewSukudoX(9)
-	skd.ResultInFromString(data)
+	sdk, _ := sudoku.NewSudokuX(9)
+	sdk.ResultInFromString(data)
 
-	result, _ := skd.Solve()
+	result, _ := sdk.Solve()
 	fmt.Println(result)
 
-	skd.Print()
+	sdk.Print()
 
 	// Output:
 	// true

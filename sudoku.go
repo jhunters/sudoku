@@ -18,9 +18,9 @@ type optional struct {
 	opts []int
 }
 
-// SukudoX is a flexiable sudoku puzzle resolver
-type SukudoX struct {
-	// SukudoX puzzle content
+// SudokuX is a flexiable sudoku puzzle resolver
+type SudokuX struct {
+	// SudokuX puzzle content
 	Puzzles [][]int
 
 	Max int
@@ -43,9 +43,9 @@ type SukudoX struct {
 	yCount  int
 }
 
-func NewSukudoX(max int) (*SukudoX, error) {
+func NewSudokuX(max int) (*SudokuX, error) {
 	if max > 1 && max < 10 && (isPerfectSquare(float64(max)) || max%2 == 0) {
-		skd := &SukudoX{checked: syncx.NewMap[string, bool]()}
+		skd := &SudokuX{checked: syncx.NewMap[string, bool]()}
 		skd.Exit = conv.ToPtr(false)
 		skd.Max = max
 		skd.Puzzles = Init2dimArray(max)
@@ -85,7 +85,7 @@ func isPerfectSquare(n float64) bool {
 }
 
 // ResultIn 从原始数字导入
-func (s *SukudoX) ResultIn(origin [][]int) {
+func (s *SudokuX) ResultIn(origin [][]int) {
 	for i := 0; i < s.Max; i++ {
 		for j := 0; j < s.Max; j++ {
 			if origin[i][j] != 0 {
@@ -95,32 +95,32 @@ func (s *SukudoX) ResultIn(origin [][]int) {
 	}
 }
 
-// Copy a new SukudoX struct by has some pointer to Exit and tryCounter field
-func (s *SukudoX) Copy() *SukudoX {
+// Copy a new SudokuX struct by has some pointer to Exit and tryCounter field
+func (s *SudokuX) Copy() *SudokuX {
 	mp := s.checked.Copy()
 	puzzles := Init2dimArray(s.Max)
 	for i := 0; i < s.Max; i++ {
 		copy(puzzles[i], s.Puzzles[i])
 	}
-	ret := &SukudoX{Puzzles: puzzles, checked: mp, Max: s.Max, mapping: s.mapping,
+	ret := &SudokuX{Puzzles: puzzles, checked: mp, Max: s.Max, mapping: s.mapping,
 		unmapping: s.unmapping, boxWMax: s.boxWMax, boxHMax: s.boxHMax, xCount: s.xCount, yCount: s.yCount}
 	ret.Exit = s.Exit
 	ret.tryCounter = s.tryCounter
 	return ret
 }
 
-// Print SukudoX puzzle
-func (s *SukudoX) Print() {
+// Print SudokuX puzzle
+func (s *SudokuX) Print() {
 	PrintX(s.ResultOut(), s.Max, s.boxWMax, s.boxHMax)
 }
 
 // Exited return true if should exit loop
-func (s *SukudoX) Exited() bool {
+func (s *SudokuX) Exited() bool {
 	return s.Exit != nil && *s.Exit
 }
 
 // Finished check all value is being wrote
-func (s *SukudoX) Finished() bool {
+func (s *SudokuX) Finished() bool {
 	for _, v := range s.Puzzles {
 		for _, v2 := range v {
 			if v2 == 0 {
@@ -131,13 +131,13 @@ func (s *SukudoX) Finished() bool {
 	return true
 }
 
-// Success check SukudoX is well done
-func (s *SukudoX) Success() bool {
+// Success check SudokuX is well done
+func (s *SudokuX) Success() bool {
 	return s.validate(false)
 }
 
 // validate 判断是否是正确的数独解题
-func (s *SukudoX) validate(ignoreZero bool) bool {
+func (s *SudokuX) validate(ignoreZero bool) bool {
 	// check line
 	for _, v := range s.Puzzles {
 		vv := v[:]
@@ -165,7 +165,7 @@ func (s *SukudoX) validate(ignoreZero bool) bool {
 }
 
 // validateBox return true if target 3X3 box is finished
-func (s *SukudoX) validateBox(x, y int) bool {
+func (s *SudokuX) validateBox(x, y int) bool {
 	var k int
 
 	startx := x / s.boxHMax * s.boxHMax
@@ -184,7 +184,7 @@ func (s *SukudoX) validateBox(x, y int) bool {
 }
 
 // validateLine return true if target row  finished
-func (s *SukudoX) validateLine(line []int, ignoreZero bool) bool {
+func (s *SudokuX) validateLine(line []int, ignoreZero bool) bool {
 	var k int
 	for _, v2 := range line {
 		if v2 == 0 { // not finished
@@ -202,7 +202,7 @@ func (s *SukudoX) validateLine(line []int, ignoreZero bool) bool {
 }
 
 // validateCol return true if target column finished
-func (s *SukudoX) validateCol(col [][]int, ignoreZero bool) bool {
+func (s *SudokuX) validateCol(col [][]int, ignoreZero bool) bool {
 
 	sz := len(col)
 	for i := 0; i < s.Max; i++ {
@@ -225,7 +225,7 @@ func (s *SukudoX) validateCol(col [][]int, ignoreZero bool) bool {
 }
 
 // ResultInFromString parse directly from string number
-func (s *SukudoX) ResultInFromString(str string) error {
+func (s *SudokuX) ResultInFromString(str string) error {
 	total := int(math.Pow(float64(s.Max), 2))
 	if len(str) != total {
 		return fmt.Errorf("invalid sudoku puzzle by string. the length should be 81")
@@ -249,7 +249,7 @@ func (s *SukudoX) ResultInFromString(str string) error {
 }
 
 // ResultOut 导出结果，为原始的数字
-func (s *SukudoX) ResultOut() [][]int {
+func (s *SudokuX) ResultOut() [][]int {
 	var ret [][]int = make([][]int, s.Max)
 	for i := 0; i < s.Max; i++ {
 		ret[i] = make([]int, s.Max)
@@ -261,7 +261,7 @@ func (s *SukudoX) ResultOut() [][]int {
 }
 
 // doSolve try to fill by only has one election number
-func (s *SukudoX) doSolve() (bool, []optional) {
+func (s *SudokuX) doSolve() (bool, []optional) {
 	if s.validate(false) { // if check no zero and finished
 		return true, nil
 	}
@@ -365,7 +365,7 @@ func (s *SukudoX) doSolve() (bool, []optional) {
 }
 
 // Solve to solve sudoku.  if ok is true means success.
-func (s *SukudoX) Solve() (ok bool, count int32) {
+func (s *SudokuX) Solve() (ok bool, count int32) {
 
 	for {
 		ok, optionals := s.doSolve() // if ok is true then continue to solve
@@ -408,7 +408,7 @@ func (s *SukudoX) Solve() (ok bool, count int32) {
 			}
 			wg.Add(1)
 
-			go func(in *SukudoX, wg *sync.WaitGroup, rowID int, colID int, value int, c chan ChannelX) {
+			go func(in *SudokuX, wg *sync.WaitGroup, rowID int, colID int, value int, c chan ChannelX) {
 				defer wg.Done()
 				in.Puzzles[rowID][colID] = value
 
@@ -445,23 +445,23 @@ func (s *SukudoX) Solve() (ok bool, count int32) {
 }
 
 type ChannelX struct {
-	Intermediate *SukudoX
+	Intermediate *SudokuX
 	Solved       bool
 }
 
-func (s *SukudoX) registerCheck(x, y int) {
+func (s *SudokuX) registerCheck(x, y int) {
 	v := strconv.Itoa(x) + strconv.Itoa(y)
 	s.checked.Store(v, true)
 }
 
-func (s *SukudoX) isCheck(x, y int) bool {
+func (s *SudokuX) isCheck(x, y int) bool {
 	v := strconv.Itoa(x) + strconv.Itoa(y)
 	k, ok := s.checked.Load(v)
 	return ok && k
 }
 
 // 求当前的空格在所在行中可填写的数字
-func (s *SukudoX) getCandidatesInRow(row int) []int {
+func (s *SudokuX) getCandidatesInRow(row int) []int {
 	found := 0
 	ret := make([]int, s.Max)
 	var k int
@@ -483,7 +483,7 @@ func (s *SukudoX) getCandidatesInRow(row int) []int {
 }
 
 // 求当前的空格在所在列中可填写的数字
-func (s *SukudoX) getCandidatesInColumn(col int) []int {
+func (s *SudokuX) getCandidatesInColumn(col int) []int {
 	found := 0
 	ret := make([]int, s.Max)
 	var k int
@@ -505,7 +505,7 @@ func (s *SukudoX) getCandidatesInColumn(col int) []int {
 }
 
 // 求当前的空格在6格式中可填写的数字
-func (s *SukudoX) getCandidatesInBox(x, y int) []int {
+func (s *SudokuX) getCandidatesInBox(x, y int) []int {
 	found := 0
 	ret := make([]int, s.Max)
 	var k int
