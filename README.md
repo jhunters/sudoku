@@ -19,7 +19,7 @@ go get github.com/jhunters/sudoku
 
 # Qiuck start
 
-### Do solve sudoku puzzle
+### Do solve sudoku puzzle (9x9)
 ```go
 	skd, _ := sudoku.NewSudokuX(9)
 	origin := [][]int{{6, 0, 0, 0, 0, 2, 0, 0, 0}, {0, 0, 1, 0, 0, 7, 0, 0, 2},
@@ -52,8 +52,34 @@ output result as follow:
 4 9 2 | 6 7 5 | 1 8 3
 ```
 
+### Do solve sudoku puzzle (6x6)
+```go
+	skd, _ := sudoku.NewSudokuX(6)
+	origin := [][]int{{0, 0, 1, 2, 0, 0}, {0, 0, 0, 0, 5, 0}, {5, 0, 0, 1, 0, 6}, {0, 3, 0, 0, 0, 0}, {6, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 1, 4}}
 
-### generate a random sudoku puzzle
+	skd.ResultIn(origin)
+
+	result, _ := skd.Solve()
+	fmt.Println(result)
+
+	skd.Print()
+```
+
+output result as follow:
+
+```shell
+4 5 1 | 2 6 3
+2 6 3 | 4 5 1
+----- + -----
+5 4 2 | 1 3 6
+1 3 6 | 5 4 2
+----- + -----
+6 1 4 | 3 2 5
+3 2 5 | 6 1 4
+```
+
+
+### generate a random sudoku puzzle (9x9)
 
 ```go
     sg := &sudoku.SudokuGenX{9, 40}
