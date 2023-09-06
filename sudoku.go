@@ -3,6 +3,7 @@ package sudoku
 
 import (
 	"fmt"
+	"io"
 	"math"
 	"strconv"
 	"sync"
@@ -112,6 +113,10 @@ func (s *SudokuX) Copy() *SudokuX {
 // Print SudokuX puzzle
 func (s *SudokuX) Print() {
 	PrintX(s.ResultOut(), s.Max, s.boxWMax, s.boxHMax)
+}
+
+func (s *SudokuX) FPrint(w io.Writer) {
+	FPrintX(w, s.ResultOut(), s.Max, s.boxWMax, s.boxHMax)
 }
 
 // Exited return true if should exit loop

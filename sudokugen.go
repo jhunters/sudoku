@@ -71,23 +71,32 @@ func (sg *SudokuGenX) fillBox(result [][]int, fillby []int, rowB, ColB int) [][]
 func (sg *SudokuGenX) GenSudoku() (result [][]int, answer [][]int, err error) {
 	result = Init2dimArray(sg.max)
 
-	beginX := 0
-	beginY := 0
-	for i := 0; i < sg.yCount; i++ {
-		box1 := sg.genRandArray()
-		result = sg.fillBox(result, box1, beginX, beginY)
-		time.Sleep(10 * time.Millisecond)
-		beginX = beginX + sg.boxHMax
-		beginY = beginY + sg.boxWMax
-	}
+	retries := 3
+	for i := 0; i < retries; i++ {
+		beginX := 0
+		beginY := 0
+		for i := 0; i < sg.yCount; i++ {
+			box1 := sg.genRandArray()
+			result = sg.fillBox(result, box1, beginX, beginY)
+			time.Sleep(10 * time.Millisecond)
+			beginX = beginX + sg.boxHMax
+			beginY = beginY + sg.boxWMax
+		}
 
-	sdk, err := NewSudokuX(sg.max)
-	sdk.ResultIn(result)
-	sdk.Solve()
-	result = sdk.ResultOut()
-	answer = Init2dimArray(sg.max)
-	for i := 0; i < sg.max; i++ {
-		copy(answer[i], result[i])
+		sdk, err := NewSudokuX(sg.max)
+		if err != nil {
+			return nil, nil, err
+		}
+		sdk.ResultIn(result)
+		success, _ := sdk.Solve()
+		if !success { // do retry
+			continue
+		}
+		result = sdk.ResultOut()
+		answer = Init2dimArray(sg.max)
+		for i := 0; i < sg.max; i++ {
+			copy(answer[i], result[i])
+		}
 	}
 
 	// 替换需要空缺的个数
