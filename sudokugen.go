@@ -89,13 +89,13 @@ func (sg *SudokuGenX) GenSudoku() (result [][]int, answer [][]int, err error) {
 		}
 		sdk.ResultIn(result)
 		success, _ := sdk.Solve()
-		if !success { // do retry
-			continue
-		}
-		result = sdk.ResultOut()
-		answer = Init2dimArray(sg.max)
-		for i := 0; i < sg.max; i++ {
-			copy(answer[i], result[i])
+		if success {
+			result = sdk.ResultOut()
+			answer = Init2dimArray(sg.max)
+			for i := 0; i < sg.max; i++ {
+				copy(answer[i], result[i])
+			}
+			break
 		}
 	}
 
